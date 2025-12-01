@@ -44,5 +44,8 @@ Una aplicación web completa para la gestión de finanzas personales, desarrolla
 - Gestión de Transacciones (Ingresos y Gastos)
 - Gráficos interactivos
 
+
+Web: https://finpro-frontend.vercel.app/dashboard 
+
 ---
 Desarrollado por **Jose Milla**.
