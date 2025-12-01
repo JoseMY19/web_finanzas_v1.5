@@ -15,6 +15,20 @@ export default function RegisterPage() {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setLoading(true);
+        try {
+            await axios.post(`${getApiUrl()}/auth/register`, { name, email, password });
+            router.push('/login');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Error en el registro');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="min-h-screen flex bg-slate-950">
             {/* Lado Izquierdo - Formulario */}
