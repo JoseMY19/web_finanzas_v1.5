@@ -5,6 +5,7 @@ import axios from 'axios';
 import DashboardLayout from '@/components/DashboardLayout';
 import { useRouter } from 'next/navigation';
 import { Trash2, Edit2, Plus, X, Search, Filter } from 'lucide-react';
+import { getApiUrl } from '@/utils/api';
 
 export default function TransactionsPage() {
     const [transactions, setTransactions] = useState([]);
@@ -28,7 +29,7 @@ export default function TransactionsPage() {
             return;
         }
         try {
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001'}/transactions`, {
+            const res = await axios.get(`${getApiUrl()}/transactions`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setTransactions(res.data);
@@ -47,7 +48,7 @@ export default function TransactionsPage() {
         if (!confirm('¿Estás seguro de que deseas eliminar esta transacción?')) return;
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001'}/transactions/${id}`, {
+            await axios.delete(`${getApiUrl()}/transactions/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchTransactions();
@@ -61,11 +62,11 @@ export default function TransactionsPage() {
         const token = localStorage.getItem('token');
         try {
             if (editingId) {
-                await axios.put(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001'}/transactions/${editingId}`, formData, {
+                await axios.put(`${getApiUrl()}/transactions/${editingId}`, formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             } else {
-                await axios.post(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001'}/transactions`, formData, {
+                await axios.post(`${getApiUrl()}/transactions`, formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             }

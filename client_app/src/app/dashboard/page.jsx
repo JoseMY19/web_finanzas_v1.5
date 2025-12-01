@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { ArrowDownRight, ArrowUpRight, DollarSign, Wallet } from 'lucide-react';
+import { getApiUrl } from '@/utils/api';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -24,7 +25,7 @@ export default function DashboardPage() {
             }
 
             try {
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001'}/dashboard`, {
+                const res = await axios.get(`${getApiUrl()}/dashboard`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setStats(res.data);

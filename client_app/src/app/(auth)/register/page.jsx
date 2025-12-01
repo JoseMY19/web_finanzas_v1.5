@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { PieChart } from 'lucide-react';
+import { getApiUrl } from '@/utils/api';
 
 export default function RegisterPage() {
     const [name, setName] = useState('');
@@ -13,20 +14,6 @@ export default function RegisterPage() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        setLoading(true);
-        try {
-            await axios.post(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001'}/auth/register`, { name, email, password });
-            router.push('/login');
-        } catch (err) {
-            setError(err.response?.data?.message || 'Error en el registro');
-        } finally {
-            setLoading(false);
-        }
-    };
 
     return (
         <div className="min-h-screen flex bg-slate-950">
